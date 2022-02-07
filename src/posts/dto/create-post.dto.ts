@@ -9,8 +9,8 @@ export class CreatePostDto {
 
     @IsNotEmpty()
     @IsString()
-    @MinLength(3)
     body: string;
 
     userId: string;
 }
+ 
