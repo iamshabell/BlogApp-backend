@@ -16,6 +16,10 @@ export class UsersService {
     return this.prismaService.user.findMany()
   }
 
+  findByEmail(email: string) {
+    return this.prismaService.user.findUnique({where: {email: email}})
+  }
+
   findOne(id: string) {
     return this.prismaService.user.findUnique({where: {id: id}})
   }
