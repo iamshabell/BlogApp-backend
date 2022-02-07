@@ -1,21 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnModuleInit {
 
+    private userService: UsersService;
     constructor(
-        private usersService: UsersService
+        private moduleRef: ModuleRef
     ){
         
     }
+    onModuleInit() {
+        this.userService = this.moduleRef.get(UsersService, {strict: false})
+    }
+    
 
     async validateUser(email: string, password: string){
-        const user = await this.usersService.findByEmail(email)
+        const user = await this.userService.findByEmail(email)
         
-        if(!user || user.password !== password) return false;
+        if(!user || user.password!== password) return false;
         return user
     }
 
