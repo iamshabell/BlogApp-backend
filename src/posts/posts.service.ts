@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 
@@ -11,8 +12,8 @@ export class PostsService {
     return this.prismaService.post.create({ data: createPostDto})
   }
 
-  findAll() {
-    return this.prismaService.post.findMany()
+  findAll(query?: Prisma.PostInclude) {
+    return this.prismaService.post.findMany({include: query})
   }
 
   findOne(id: string) {

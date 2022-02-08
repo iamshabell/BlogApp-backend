@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -12,8 +13,8 @@ export class UsersService {
     return this.prismaService.user.create({data: createUserDto})
   }
 
-  findAll() {
-    return this.prismaService.user.findMany()
+  findAll(query: Prisma.UserInclude) {
+    return this.prismaService.user.findMany({ include: query });
   }
 
   findByEmail(email: string) {
