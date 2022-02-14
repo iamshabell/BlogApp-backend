@@ -12,5 +12,6 @@ export class CreatePostDto {
     body: string;
 
     userId: string;
+    
 }
  

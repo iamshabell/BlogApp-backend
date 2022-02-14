@@ -12,7 +12,7 @@ export class PostsService {
     return this.prismaService.post.create({ data: createPostDto})
   }
 
-  findAll(query?: Prisma.PostInclude) {
+  findAll(query: Prisma.PostInclude) {
     return this.prismaService.post.findMany({include: query})
   }
 
